@@ -75,7 +75,6 @@ Serial.print('Time and date set');
 
 void loop()
 { 
-  music();
   scan();
   timer();
   motors();
@@ -128,20 +127,20 @@ void setLoudness(int loudness){
 }
 void music()
 {
-  // digitalRead function stores the Push button state 
-// in variable push_button_state
-int Push_button_state = digitalRead(PushButton);
-Serial.println(Push_button_state);
-// if condition checks if push button is pressed
-// if pressed LED will turn on otherwise remain off 
-if ( Push_button_state == HIGH )
-{ 
-play(frereJacques);
-}
-
+          // digitalRead function stores the Push button state 
+        // in variable push_button_state
+        int Push_button_state = digitalRead(PushButton);
+        Serial.println(Push_button_state);
+        // if condition checks if push button is pressed
+        // if pressed LED will turn on otherwise remain off 
+        if ( Push_button_state == HIGH )
+        { 
+        play(frereJacques);
+        }
 }
 void scan()
 {
+  music();
   BLEScanResults foundDevices = pBLEScan->start(1, false);
   Serial.print("Devices found: ");
   Serial.println(foundDevices.getCount());
@@ -184,27 +183,31 @@ void timer()
 
 void motors()
 {
+    music();
     for (pos = 0; pos <= 360; pos += 1)
     { // goes from 0 degrees to 180 degrees
         // in steps of 1 degree
         myservo.write(pos);    // tell servo to go to position in variable 'pos'
         delay(5);             // waits 15ms for the servo to reach the position
     }
+    music();
     for (pos = 360; pos >= 0; pos -= 1) 
     { // goes from 180 degrees to 0 degrees
         myservo.write(pos);    // tell servo to go to position in variable 'pos'
         delay(15);             // waits 15ms for the servo to reach the position
     }
-
+   music();
   for (pos = 0; pos <= 360; pos += 1)
   { // goes from 0 degrees to 180 degrees
     // in steps of 1 degree
     myservo1.write(pos);    // tell servo to go to position in variable 'pos'
     delay(5);             // waits 15ms for the servo to reach the position
   }
+  music();
   for (pos = 360; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
     myservo1.write(pos);    // tell servo to go to position in variable 'pos'
     delay(15);             // waits 15ms for the servo to reach the position
   }
+  music();
 
 }
