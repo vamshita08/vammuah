@@ -38,8 +38,8 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
 void setup()
 {
 // This statement will declare pin 15 as digital input 
-pinMode(PushButton, INPUT);
-Serial.begin(115200);
+  pinMode(PushButton, INPUT);
+  Serial.begin(115200);
     #ifdef ESP_PLATFORM
         #define CHANNEL 5
         ledcSetup(CHANNEL, 5000, 8);
@@ -74,36 +74,26 @@ Serial.print('Time and date set');
 }
 
 void loop()
-
-{
- 
-music();
-scan();
-timer();
-motors();
- //input from button and play users audio
-
-
+{ 
+  music();
+  scan();
+  timer();
+  motors();
+  //input from button and play users audio
 }
-void play(Melody melody)
-{
 
-    Serial.print("Melody length : ");
-    Serial.println(melody.length()); //Get the total length (number of notes) of the melody.
+void play(Melody melody) {
+  Serial.print("Melody length : ");
+  Serial.println(melody.length()); //Get the total length (number of notes) of the melody.
+  melody.restart(); //The melody iterator is restarted at the beginning.
 
-    melody.restart(); //The melody iterator is restarted at the beginning.
-
-    while (melody.hasNext()) //While there is a next note to play.
-    {
+  while (melody.hasNext()) //While there is a next note to play.
+  {
         melody.next(); //Move the melody note iterator to the next one.
-
-   
-
         unsigned int frequency = melody.getFrequency(); //Get the frequency in Hz of the curent note.
         unsigned long duration = melody.getDuration();  //Get the duration in ms of the curent note.
         unsigned int loudness = melody.getLoudness();   //Get the loudness of the curent note (in a subjective relative scale from -3 to +3).
                                                         //Common interpretation will be -3 is really soft (ppp), and 3 really loud (fff).
-
         if (frequency > 0)
         {
             tone(PIN_TONE, frequency);
@@ -111,18 +101,18 @@ void play(Melody melody)
         }
         else
         {
-//            noTone(PIN_TONE);
+            noToneCustom(PIN_TONE);
         }
 
         delay(duration);
 
         //This 1 ms delay with no tone is added to let a "breathing" time between each note.
         //Without it, identical consecutives notes will sound like just one long note.
-//        noTone(PIN_TONE);
+       noToneCustom(PIN_TONE);
         delay(1);
     }
 
-    //noTone(PIN_TONE);
+    noToneCustom(PIN_TONE);
     delay(1000);
 }
 
@@ -185,10 +175,10 @@ void timer()
     {
         ledcWriteTone(CHANNEL, frequency);
     }
-//    void noTone(int pin) //FOR ESP Platform, pin is unused
-    //{
-      //  ledcWrite(CHANNEL, 0);
-    //}
+    void noToneCustom(int pin) //FOR ESP Platform, pin is unused
+  {
+      ledcWrite(CHANNEL, 0);
+    }
 
 #endif
 
