@@ -8,6 +8,40 @@
 #include <BLEUtils.h>
 #include <BLEScan.h>
 #include <BLEAdvertisedDevice.h>
+#define BLYNK_PRINT Serial
+
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <BlynkSimpleEsp32.h>
+
+
+
+// You should get Auth Token in the Blynk App.
+// Go to the Project Settings (nut icon).
+char auth[] = "vWPVAZn4ExabzAEG0NF8g-VGFZoKCwmD";
+
+
+// Your WiFi credentials.
+// Set password to "" for open networks.
+char ssid[] = "linksys";
+char pass[] = "8023338737";
+
+WidgetLED led1(V1);
+
+BlynkTimer timer;
+
+// V1 LED Widget is blinking
+void blinkLedWidget()
+{
+  if (led1.getValue()) {
+    led1.off();
+    Serial.println("LED on V1: off");
+  } else {
+    led1.on();
+    Serial.println("LED on V1: on");
+  }
+}
+
 
 #define SERIAL_BAUDRATE 115200
 #define PIN_TONE 12
@@ -37,6 +71,8 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
 // This Setup function is used to initialize everything 
 void setup()
 {
+
+   Blynk.begin(auth, ssid, pass);
 // This statement will declare pin 15 as digital input 
   pinMode(PushButton, INPUT);
   Serial.begin(115200);
@@ -75,8 +111,9 @@ Serial.print('Time and date set');
 
 void loop()
 { 
+  Blynk.run();
+  timer.run();
   scan();
-  timer();
   motors();
   //input from button and play users audio
 }
@@ -166,7 +203,6 @@ void timer()
   Serial.println();
 
 }
-
 
 #ifdef ESP_PLATFORM
 
