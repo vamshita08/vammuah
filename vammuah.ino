@@ -49,12 +49,12 @@
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "mTvFeBeDY04BjOktv0LOzdLO2aGoIppq";
+char auth[] = "vWPVAZn4ExabzAEG0NF8g-VGFZoKCwmD";
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
-char ssid[] = "wiFI name";
-char pass[] = "WiFiPassword";
+char ssid[] = "linksys";
+char pass[] = "8023338737";
 
 const int PushButton=15; 
 Melody frereJacques("(cdec)x2   (efgr)x2   ((gagf)-ec)x2     (c g_ c+)x2");
@@ -90,12 +90,18 @@ void setup()
   myservo1.attach(servoPin1, 1000, 2000);// attaches the servo on pin 18 to the servo object  
 }
 
+BLYNK_WRITE(V0)
+{
+motors(); 
+}
+
+
 void loop()
 {
   Blynk.run();
   Serial.println("scan start");
   deviceStatus();
-  motors(); 
+  
 
 }
 
@@ -220,31 +226,42 @@ void customtimer()
 
 void motors()
 {
-    music();
-    for (pos = 0; pos <= 360; pos += 1)
-    { // goes from 0 degrees to 180 degrees
-        // in steps of 1 degree
-        myservo.write(pos);    // tell servo to go to position in variable 'pos'
-        delay(5);             // waits 15ms for the servo to reach the position
-    }
-    music();
-    for (pos = 360; pos >= 0; pos -= 1) 
-    { // goes from 180 degrees to 0 degrees
-        myservo.write(pos);    // tell servo to go to position in variable 'pos'
-        delay(15);             // waits 15ms for the servo to reach the position
-    }
-   music();
-  for (pos = 0; pos <= 360; pos += 1)
-  { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    myservo1.write(pos);    // tell servo to go to position in variable 'pos'
-    delay(5);             // waits 15ms for the servo to reach the position
-  }
+music();
+  	for (pos = 0; pos <= 120; pos += 1) { // goes from 0 degrees to 180 degrees
+		// in steps of 1 degree
+		myservo.write(pos);    // tell servo to go to position in variable 'pos'
+		delay(15);             // waits 15ms for the servo to reach the position
+	}
   music();
-  for (pos = 360; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
-    myservo1.write(pos);    // tell servo to go to position in variable 'pos'
-    delay(15);             // waits 15ms for the servo to reach the position
-  }
-  music();
+	for (pos = 120; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
+		myservo.write(pos);    // tell servo to go to position in variable 'pos'
+		delay(15);             // waits 15ms for the servo to reach the position
+	}
+  //   music();
+  //   for (pos = 0; pos <= 360; pos += 1)
+  //   { // goes from 0 degrees to 180 degrees
+  //       // in steps of 1 degree
+  //       myservo.write(pos);    // tell servo to go to position in variable 'pos'
+  //       delay(5);             // waits 15ms for the servo to reach the position
+  //   }
+  //   music();
+  //   for (pos = 360; pos >= 0; pos -= 1) 
+  //   { // goes from 180 degrees to 0 degrees
+  //       myservo.write(pos);    // tell servo to go to position in variable 'pos'
+  //       delay(15);             // waits 15ms for the servo to reach the position
+  //   }
+  //  music();
+  // for (pos = 0; pos <= 360; pos += 1)
+  // { // goes from 0 degrees to 180 degrees
+  //   // in steps of 1 degree
+  //   myservo1.write(pos);    // tell servo to go to position in variable 'pos'
+  //   delay(5);             // waits 15ms for the servo to reach the position
+  // }
+  // music();
+  // for (pos = 360; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
+  //   myservo1.write(pos);    // tell servo to go to position in variable 'pos'
+  //   delay(15);             // waits 15ms for the servo to reach the position
+  // }
+  // music();
 }
 
